@@ -5,7 +5,7 @@ import (
 	"testing"
 )
 
-func TestNewWavyWord(t *testing.T) {
+func TestNew(t *testing.T) {
 	type args struct {
 		word     string
 		waviness int
@@ -70,16 +70,25 @@ func TestNewWavyWord(t *testing.T) {
 			want:    nil,
 			wantErr: true,
 		},
+		{
+			name: "should return error if waviness is negative",
+			args: args{
+				word:     "wavyword",
+				waviness: -1,
+			},
+			want:    nil,
+			wantErr: true,
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			got, err := New(tt.args.word, tt.args.waviness)
 			if (err != nil) != tt.wantErr {
-				t.Errorf("NewWavyWord() error = %v, wantErr %v", err, tt.wantErr)
+				t.Errorf("New() error = %v, wantErr %v", err, tt.wantErr)
 				return
 			}
 			if !reflect.DeepEqual(got, tt.want) {
-				t.Errorf("NewWavyWord() = %v, want %v", got, tt.want)
+				t.Errorf("New() = %v, want %v", got, tt.want)
 			}
 		})
 	}

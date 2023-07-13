@@ -23,6 +23,10 @@ func New(word string, waviness int) (*WavyWord, error) {
 		return nil, errors.New("cannot create a wavy word from an empty string")
 	}
 
+	if waviness < 0 {
+		return nil, fmt.Errorf("waviness cannot be negative, received: %d", waviness)
+	}
+
 	linesAmount := waviness*2 + 1
 	initialY := linesAmount / 2
 	waveLength := waviness * 4
